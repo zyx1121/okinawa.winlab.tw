@@ -31,6 +31,7 @@ const TripMap = dynamic(
 
 type TripDashboardProps = {
   attractions: Attraction[]
+  mapboxAccessToken: string | null
 }
 
 function getAttractionCategories(attractions: Attraction[]) {
@@ -58,7 +59,10 @@ function isGoogleMapLink(label: string) {
   return label === "Google 地圖"
 }
 
-export function TripDashboard({ attractions: initialAttractions }: TripDashboardProps) {
+export function TripDashboard({
+  attractions: initialAttractions,
+  mapboxAccessToken,
+}: TripDashboardProps) {
   const attractions = React.useMemo(
     () => sortAttractionsByTime(initialAttractions),
     [initialAttractions],
@@ -109,6 +113,7 @@ export function TripDashboard({ attractions: initialAttractions }: TripDashboard
         <TripMap
           attractions={filteredAttractions}
           selectedAttractionId={activeAttractionId}
+          mapboxAccessToken={mapboxAccessToken}
           onSelectAttraction={handleMapSelectAttraction}
         />
       </div>

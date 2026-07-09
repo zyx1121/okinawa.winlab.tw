@@ -35,6 +35,7 @@ const OKA_COORDINATES = { lat: 26.1958, lng: 127.6459 }
 type TripMapProps = {
   attractions: Attraction[]
   selectedAttractionId: string | null
+  mapboxAccessToken: string | null
   onSelectAttraction: (attractionId: string) => void
 }
 
@@ -165,11 +166,11 @@ function AttractionMarker({
 export function TripMap({
   attractions,
   selectedAttractionId,
+  mapboxAccessToken,
   onSelectAttraction,
 }: TripMapProps) {
   const mapRef = React.useRef<MapRef>(null)
   const [mapRenderKey] = React.useState(() => `trip-map-${crypto.randomUUID()}`)
-  const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
 
   const selectedAttraction =
     attractions.find((attraction) => attraction.id === selectedAttractionId) ?? null
@@ -198,10 +199,10 @@ export function TripMap({
     focusAttraction(map, attraction)
   }, [attractions, selectedAttractionId])
 
-  if (!mapboxToken) {
+  if (!mapboxAccessToken) {
     return (
       <div className="flex h-full w-full items-center justify-center bg-background p-6 text-center text-sm text-muted-foreground">
-        請設定 <code className="text-foreground">NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN</code>{" "}
+        請設定 <code className="text-foreground">MAPBOX_ACCESS_TOKEN</code>{" "}
         以載入 Mapbox 深色地圖。
       </div>
     )
@@ -213,7 +214,7 @@ export function TripMap({
         ref={mapRef}
         key={mapRenderKey}
         reuseMaps={false}
-        mapboxAccessToken={mapboxToken}
+        mapboxAccessToken={mapboxAccessToken}
         mapStyle={MAPBOX_DARK_STYLE}
         projection="globe"
         initialViewState={{
