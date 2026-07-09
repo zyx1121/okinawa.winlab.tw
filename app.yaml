@@ -3,6 +3,8 @@ port: 3000
 health: /
 expose:
   - okinawa.app.winlab.tw
+env:
+  - MAPBOX_ACCESS_TOKEN
 resources:
   cpu: "1"
   memory: 1Gi
