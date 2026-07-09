@@ -6,6 +6,6 @@ expose:
 env:
   - MAPBOX_ACCESS_TOKEN
 resources:
-  cpu: "1"
-  memory: 1Gi
+  cpu: 250m
+  memory: 512Mi
   replicas: 1
