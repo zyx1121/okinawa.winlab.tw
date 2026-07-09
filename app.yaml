@@ -1,0 +1,9 @@
+name: okinawa
+port: 3000
+health: /
+expose:
+  - okinawa.app.winlab.tw
+resources:
+  cpu: "1"
+  memory: 1Gi
+  replicas: 1
