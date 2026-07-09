@@ -1,0 +1,984 @@
+{
+  "attractions": [
+    {
+      "id": "tpe-airport",
+      "name": "桃園國際機場 (TPE)",
+      "category": "機場",
+      "area": "桃園",
+      "coordinates": {
+        "lat": 25.0777,
+        "lng": 121.2328
+      },
+      "visitWindow": "9月6日 18:05 出發 · 9月11日 08:45 抵達",
+      "priority": "must-see",
+      "tags": [
+        "去程",
+        "回程",
+        "桃園"
+      ],
+      "notes": "去程 9/6 18:05 從 TPE 出發；回程 9/11 08:45 抵達 TPE。",
+      "sortAt": "2026-09-06T18:05:00+08:00",
+      "sortOrder": 10,
+      "address": "337041 桃園市大園區航站南路9號",
+      "links": [
+        {
+          "label": "Google 地圖",
+          "href": "https://maps.app.goo.gl/ZFXbQ8FBcpFENUGcA"
+        }
+      ],
+      "planGroup": "9/6 抵達日",
+      "timeBlock": "機場 / 航班"
+    },
+    {
+      "id": "flight-outbound",
+      "name": "去程航班 · 樂桃航空",
+      "category": "航班",
+      "area": "臺北 → 沖繩",
+      "coordinates": {
+        "lat": 25.0777,
+        "lng": 121.2328
+      },
+      "visitWindow": "9月6日（週日）18:05-20:50",
+      "priority": "must-see",
+      "tags": [
+        "樂桃航空",
+        "直達",
+        "TPE",
+        "OKA"
+      ],
+      "notes": "臺北桃園 TPE 18:05 出發，沖繩那霸 OKA 20:50 抵達，飛行時間 1 小時 45 分。來回總價 NT$5,797。",
+      "sortAt": "2026-09-06T18:05:00+08:00",
+      "sortOrder": 20,
+      "route": {
+        "from": {
+          "lat": 25.0777,
+          "lng": 121.2328
+        },
+        "to": {
+          "lat": 26.1958,
+          "lng": 127.6459
+        }
+      },
+      "address": "桃園國際機場 (TPE) → 那霸機場 (OKA)",
+      "recommendedDuration": "1 小時 45 分",
+      "links": [
+        {
+          "label": "桃園機場地圖",
+          "href": "https://maps.app.goo.gl/ZFXbQ8FBcpFENUGcA"
+        },
+        {
+          "label": "那霸機場地圖",
+          "href": "https://maps.app.goo.gl/a2rXMaJdKbvGUnA47"
+        }
+      ],
+      "planGroup": "9/6 抵達日",
+      "timeBlock": "機場 / 航班"
+    },
+    {
+      "id": "oka-airport",
+      "name": "那霸機場 (OKA)",
+      "category": "機場",
+      "area": "那霸",
+      "coordinates": {
+        "lat": 26.1958,
+        "lng": 127.6459
+      },
+      "visitWindow": "9月6日 20:50 抵達 · 9月11日 08:10 出發",
+      "priority": "must-see",
+      "tags": [
+        "去程",
+        "回程",
+        "那霸"
+      ],
+      "notes": "去程 9/6 20:50 抵達 OKA；回程 9/11 08:10 從 OKA 出發。",
+      "sortAt": "2026-09-06T20:50:00+08:00",
+      "sortOrder": 30,
+      "address": "沖繩縣那霸市鏡水150",
+      "links": [
+        {
+          "label": "Google 地圖",
+          "href": "https://maps.app.goo.gl/a2rXMaJdKbvGUnA47"
+        }
+      ],
+      "planGroup": "9/6 抵達日",
+      "timeBlock": "機場 / 航班"
+    },
+    {
+      "id": "kerama-snorkeling",
+      "name": "慶良間諸島 snorkeling / diving",
+      "category": "海上活動",
+      "area": "慶良間諸島",
+      "coordinates": {
+        "lat": 26.2288,
+        "lng": 127.3033
+      },
+      "visitWindow": "9月7日或9月8日優先 · 天氣好先排",
+      "priority": "must-see",
+      "tags": [
+        "海龜",
+        "珊瑚",
+        "全天",
+        "天氣敏感",
+        "需預約"
+      ],
+      "notes": "9月水溫仍適合 snorkeling / diving，是這趟最值得優先保留的海上活動。颱風、浪高或船班取消時要立刻改成室內或市區行程，不要排在最後一天。",
+      "sortOrder": 100,
+      "address": "慶良間諸島國立公園（那霸出發一日船潛 / 浮潛）",
+      "recommendedDuration": "約 6-8 小時",
+      "links": [
+        {
+          "label": "JNTO 慶良間諸島",
+          "href": "https://www.japan.travel/en/destinations/okinawa/okinawa/the-kerama-islands/"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%85%B6%E8%89%AF%E9%96%93%E8%AB%B8%E5%B3%B6%E5%9B%BD%E7%AB%8B%E5%85%AC%E5%9C%92%20%E6%B2%96%E7%B8%84"
+        }
+      ],
+      "planGroup": "9/7 海線",
+      "timeBlock": "全天"
+    },
+    {
+      "id": "churaumi-aquarium",
+      "name": "沖繩美麗海水族館",
+      "category": "景點",
+      "area": "本部",
+      "coordinates": {
+        "lat": 26.6943,
+        "lng": 127.878
+      },
+      "visitWindow": "北部整日線 · 雨天也可",
+      "priority": "must-see",
+      "tags": [
+        "水族館",
+        "室內",
+        "北部",
+        "雨天備案"
+      ],
+      "notes": "北部行程核心點，9月天氣不穩時也能保留。可和備瀨福木林道、古宇利島排同一天。",
+      "sortOrder": 200,
+      "address": "沖繩縣國頭郡本部町石川424",
+      "recommendedDuration": "約 2-3 小時",
+      "links": [
+        {
+          "label": "官網",
+          "href": "https://churaumi.okinawa/en/"
+        },
+        {
+          "label": "營業時間",
+          "href": "https://churaumi.okinawa/sp/en/guide/hour/"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%B2%96%E7%B8%84%E7%BE%8E%E3%82%89%E6%B5%B7%E6%B0%B4%E6%97%8F%E9%A4%A8"
+        }
+      ],
+      "planGroup": "9/8 北部線",
+      "timeBlock": "午前 / 午後"
+    },
+    {
+      "id": "churaumi-inoh-ocean-blue",
+      "name": "美麗海水族館 Inoh / Ocean Blue Cafe",
+      "category": "美食",
+      "area": "本部",
+      "coordinates": {
+        "lat": 26.6943,
+        "lng": 127.878
+      },
+      "visitWindow": "午餐 / 咖啡 · 美麗海水族館同日",
+      "priority": "nice-to-have",
+      "tags": [
+        "水族館",
+        "午餐",
+        "咖啡",
+        "雨天備案"
+      ],
+      "notes": "北部日不用額外繞路的用餐備案。Inoh 有午餐 buffet，Ocean Blue 可在館內喝咖啡。",
+      "sortOrder": 210,
+      "address": "沖繩美麗海水族館內",
+      "recommendedDuration": "約 45-90 分鐘",
+      "links": [
+        {
+          "label": "水族館餐廳",
+          "href": "https://churaumi.okinawa/sp/en/area/restaurant/"
+        },
+        {
+          "label": "Ocean Blue Cafe",
+          "href": "https://churaumi.okinawa/en/area/restaurant/ocean-blue/"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=Ocean%20Blue%20Cafe%20%E6%B2%96%E7%B8%84%E7%BE%8E%E3%82%89%E6%B5%B7%E6%B0%B4%E6%97%8F%E9%A4%A8"
+        }
+      ],
+      "planGroup": "9/8 北部線",
+      "timeBlock": "午餐 / 咖啡"
+    },
+    {
+      "id": "bise-fukugi",
+      "name": "備瀨福木林道",
+      "category": "景點",
+      "area": "本部",
+      "coordinates": {
+        "lat": 26.7067,
+        "lng": 127.8784
+      },
+      "visitWindow": "美麗海水族館同日",
+      "priority": "nice-to-have",
+      "tags": [
+        "散步",
+        "北部",
+        "戶外"
+      ],
+      "notes": "水族館旁的安靜散步點，適合補足北部行程節奏。強風暴雨時跳過。",
+      "sortOrder": 220,
+      "address": "沖繩縣國頭郡本部町備瀨",
+      "recommendedDuration": "約 45-90 分鐘",
+      "links": [
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E5%82%99%E7%80%AC%E3%81%AE%E3%83%95%E3%82%AF%E3%82%AE%E4%B8%A6%E6%9C%A8%20%E6%B2%96%E7%B8%84"
+        }
+      ],
+      "planGroup": "9/8 北部線",
+      "timeBlock": "午後"
+    },
+    {
+      "id": "kouri-island",
+      "name": "古宇利島",
+      "category": "景點",
+      "area": "今歸仁",
+      "coordinates": {
+        "lat": 26.7056,
+        "lng": 128.018
+      },
+      "visitWindow": "北部整日線 · 晴天優先",
+      "priority": "nice-to-have",
+      "tags": [
+        "海景",
+        "自駕",
+        "北部",
+        "戶外"
+      ],
+      "notes": "晴天海色漂亮，適合接在美麗海水族館前後。若當天陰雨或時間壓縮，優先保留水族館。",
+      "sortOrder": 230,
+      "address": "沖繩縣國頭郡今歸仁村古宇利",
+      "recommendedDuration": "約 1-2 小時",
+      "links": [
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E5%8F%A4%E5%AE%87%E5%88%A9%E5%B3%B6%20%E6%B2%96%E7%B8%84"
+        }
+      ],
+      "planGroup": "9/8 北部線",
+      "timeBlock": "晴天加碼"
+    },
+    {
+      "id": "blue-cave-maeda",
+      "name": "青之洞窟 · 真榮田岬",
+      "category": "海上活動",
+      "area": "恩納村",
+      "coordinates": {
+        "lat": 26.4445,
+        "lng": 127.7718
+      },
+      "visitWindow": "半日 · 可接恩納村 / 萬座毛 / American Village",
+      "priority": "must-see",
+      "tags": [
+        "浮潛",
+        "體驗潛水",
+        "新手可",
+        "天氣敏感"
+      ],
+      "notes": "比慶良間輕量，適合半日 snorkeling 或體驗潛水。海況不好時會封閉或改點，預約前確認取消規則。",
+      "sortOrder": 300,
+      "address": "沖繩縣國頭郡恩納村真榮田岬周邊",
+      "recommendedDuration": "約 2-3 小時",
+      "links": [
+        {
+          "label": "JNTO Blue Cave",
+          "href": "https://www.japan.travel/en/spot/592/"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E9%9D%92%E3%81%AE%E6%B4%9E%E7%AA%9F%20%E7%9C%9F%E6%A0%84%E7%94%B0%E5%B2%AC%20%E6%B2%96%E7%B8%84"
+        }
+      ],
+      "planGroup": "9/9 恩納 / 北谷",
+      "timeBlock": "上午 / 下午"
+    },
+    {
+      "id": "cape-manzamo",
+      "name": "萬座毛",
+      "category": "景點",
+      "area": "恩納村",
+      "coordinates": {
+        "lat": 26.5049,
+        "lng": 127.8502
+      },
+      "visitWindow": "青之洞窟同日 · 晴天 / 日落前",
+      "priority": "nice-to-have",
+      "tags": [
+        "海景",
+        "短停留",
+        "戶外"
+      ],
+      "notes": "恩納村海岸線短停留點，可排在青之洞窟後。風大或暴雨時跳過。",
+      "sortOrder": 310,
+      "address": "沖繩縣國頭郡恩納村恩納",
+      "recommendedDuration": "約 30-60 分鐘",
+      "links": [
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E4%B8%87%E5%BA%A7%E6%AF%9B%20%E6%B2%96%E7%B8%84"
+        }
+      ],
+      "planGroup": "9/9 恩納 / 北谷",
+      "timeBlock": "下午"
+    },
+    {
+      "id": "american-village",
+      "name": "美國村 American Village",
+      "category": "行程",
+      "area": "北谷",
+      "coordinates": {
+        "lat": 26.3158,
+        "lng": 127.7566
+      },
+      "visitWindow": "傍晚 / 晚餐 · 可接恩納村回那霸路上",
+      "priority": "nice-to-have",
+      "tags": [
+        "晚餐",
+        "購物",
+        "夕陽",
+        "雨天備案"
+      ],
+      "notes": "適合當北上行程回程的晚餐與散步點。比純戶外海景更能承受小雨。",
+      "sortOrder": 320,
+      "address": "沖繩縣中頭郡北谷町美浜",
+      "recommendedDuration": "約 2-3 小時",
+      "links": [
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E7%BE%8E%E6%B5%9C%E3%82%A2%E3%83%A1%E3%83%AA%E3%82%AB%E3%83%B3%E3%83%93%E3%83%AC%E3%83%83%E3%82%B8%20%E6%B2%96%E7%B8%84"
+        }
+      ],
+      "planGroup": "9/9 恩納 / 北谷",
+      "timeBlock": "傍晚 / 晚餐"
+    },
+    {
+      "id": "gurume-sushi-mihama",
+      "name": "グルメ回転寿司市場 美浜店",
+      "category": "美食",
+      "area": "北谷美浜",
+      "coordinates": {
+        "lat": 26.3162,
+        "lng": 127.7566
+      },
+      "visitWindow": "晚餐 · American Village 同日",
+      "priority": "nice-to-have",
+      "tags": [
+        "壽司",
+        "回轉壽司",
+        "北谷",
+        "晚餐"
+      ],
+      "notes": "American Village 附近晚餐候選，適合想吃簡單海鮮 / 壽司、不想喝酒的晚上。",
+      "sortOrder": 330,
+      "address": "北谷町美浜 American Village 周邊",
+      "recommendedDuration": "約 1-1.5 小時",
+      "links": [
+        {
+          "label": "Tripadvisor 周邊餐廳",
+          "href": "https://www.tripadvisor.com/RestaurantsNear-g1025634-d1425027-American_Village-Chatan_cho_Nakagami_gun_Okinawa_Prefecture_Kyushu.html"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E3%82%B0%E3%83%AB%E3%83%A1%E5%9B%9E%E8%BB%A2%E5%AF%BF%E5%8F%B8%E5%B8%82%E5%A0%B4%20%E7%BE%8E%E6%B5%9C%E5%BA%97"
+        }
+      ],
+      "planGroup": "9/9 恩納 / 北谷",
+      "timeBlock": "晚餐"
+    },
+    {
+      "id": "blue-seal-depot-island",
+      "name": "Blue Seal Depot Island",
+      "category": "點心",
+      "area": "北谷美浜",
+      "coordinates": {
+        "lat": 26.3169,
+        "lng": 127.7569
+      },
+      "visitWindow": "點心 / 飯後 · American Village 同日",
+      "priority": "must-see",
+      "tags": [
+        "冰淇淋",
+        "紫芋",
+        "海鹽",
+        "北谷"
+      ],
+      "notes": "沖繩代表性冰淇淋，適合接在 American Village 晚餐後。可試紫芋、鹽香草、沖繩限定口味。",
+      "sortOrder": 340,
+      "address": "Depot Island BLD D, American Village",
+      "recommendedDuration": "約 20-40 分鐘",
+      "links": [
+        {
+          "label": "American Village 店鋪頁",
+          "href": "https://www.okinawa-americanvillage.com/en/shop/blue-seal-ice-cream/"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E3%83%96%E3%83%AB%E3%83%BC%E3%82%B7%E3%83%BC%E3%83%AB%20%E3%83%87%E3%83%9D%E3%82%A2%E3%82%A4%E3%83%A9%E3%83%B3%E3%83%89%E5%BA%97"
+        }
+      ],
+      "planGroup": "9/9 恩納 / 北谷",
+      "timeBlock": "點心 / 飯後"
+    },
+    {
+      "id": "shurijo-castle",
+      "name": "首里城公園",
+      "category": "文化",
+      "area": "那霸",
+      "coordinates": {
+        "lat": 26.217,
+        "lng": 127.7194
+      },
+      "visitWindow": "那霸市內半日 · 雨天備案",
+      "priority": "must-see",
+      "tags": [
+        "世界遺產",
+        "琉球文化",
+        "那霸",
+        "雨天備案"
+      ],
+      "notes": "2026仍有重建 / 復原相關資訊，出發前看官方臨時閉園公告。適合和國際通、牧志市場排同一天。",
+      "sortOrder": 400,
+      "address": "沖繩縣那霸市首里金城町1-2",
+      "recommendedDuration": "約 1.5-2.5 小時",
+      "links": [
+        {
+          "label": "官網",
+          "href": "https://oki-park.jp/shurijo/en/"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E9%A6%96%E9%87%8C%E5%9F%8E%E5%85%AC%E5%9C%92%20%E6%B2%96%E7%B8%84"
+        }
+      ],
+      "planGroup": "9/10 那霸 / 南部",
+      "timeBlock": "上午"
+    },
+    {
+      "id": "shuri-soba",
+      "name": "首里そば",
+      "category": "美食",
+      "area": "首里",
+      "coordinates": {
+        "lat": 26.2182,
+        "lng": 127.7187
+      },
+      "visitWindow": "午餐 · 首里城同日",
+      "priority": "must-see",
+      "tags": [
+        "沖繩麵",
+        "午餐",
+        "首里",
+        "排隊"
+      ],
+      "notes": "首里城附近的沖繩 soba 候選。午餐熱門，適合首里城前後，太晚可能賣完或排隊久。",
+      "sortOrder": 410,
+      "address": "那霸市首里赤田町周邊",
+      "recommendedDuration": "約 45-75 分鐘",
+      "links": [
+        {
+          "label": "Tabelog",
+          "href": "https://s.tabelog.com/en/okinawa/A4701/A470102/47000012/"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E9%A6%96%E9%87%8C%E3%81%9D%E3%81%B0%20%E9%82%A3%E8%A6%87"
+        }
+      ],
+      "planGroup": "9/10 那霸 / 南部",
+      "timeBlock": "午餐"
+    },
+    {
+      "id": "kokusai-dori",
+      "name": "國際通",
+      "category": "行程",
+      "area": "那霸",
+      "coordinates": {
+        "lat": 26.2147,
+        "lng": 127.6854
+      },
+      "visitWindow": "晚餐 / 採買 · 那霸市內",
+      "priority": "nice-to-have",
+      "tags": [
+        "晚餐",
+        "伴手禮",
+        "那霸",
+        "雨天備案"
+      ],
+      "notes": "那霸市內最容易塞進空檔的晚餐與採買區。適合抵達日、雨天或最後一晚。",
+      "sortOrder": 420,
+      "address": "沖繩縣那霸市牧志周邊",
+      "recommendedDuration": "約 1.5-3 小時",
+      "links": [
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E5%9B%BD%E9%9A%9B%E9%80%9A%E3%82%8A%20%E9%82%A3%E8%A6%87%20%E6%B2%96%E7%B8%84"
+        }
+      ],
+      "planGroup": "9/10 那霸 / 南部",
+      "timeBlock": "晚餐 / 採買"
+    },
+    {
+      "id": "makishi-market",
+      "name": "第一牧志公設市場",
+      "category": "美食",
+      "area": "那霸",
+      "coordinates": {
+        "lat": 26.2159,
+        "lng": 127.6887
+      },
+      "visitWindow": "國際通同日 · 午餐 / 晚餐",
+      "priority": "nice-to-have",
+      "tags": [
+        "市場",
+        "海鮮",
+        "那霸",
+        "雨天備案"
+      ],
+      "notes": "可和國際通一起排，天氣不穩時比戶外景點穩。",
+      "sortOrder": 430,
+      "address": "沖繩縣那霸市松尾2-10-1",
+      "recommendedDuration": "約 1-1.5 小時",
+      "links": [
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E7%AC%AC%E4%B8%80%E7%89%A7%E5%BF%97%E5%85%AC%E8%A8%AD%E5%B8%82%E5%A0%B4%20%E9%82%A3%E8%A6%87"
+        }
+      ],
+      "planGroup": "9/10 那霸 / 南部",
+      "timeBlock": "午餐 / 晚餐"
+    },
+    {
+      "id": "potama-makishi",
+      "name": "ポーたま 牧志市場店",
+      "category": "點心",
+      "area": "那霸",
+      "coordinates": {
+        "lat": 26.216,
+        "lng": 127.6883
+      },
+      "visitWindow": "早餐 / 點心 · 國際通 / 牧志市場同日",
+      "priority": "must-see",
+      "tags": [
+        "豬肉蛋飯糰",
+        "早餐",
+        "外帶",
+        "那霸"
+      ],
+      "notes": "沖繩 soul food 型早餐，適合國際通或牧志市場行程順手買。熱門時段可能排隊。",
+      "sortOrder": 440,
+      "address": "沖繩縣那霸市松尾2-8-35",
+      "recommendedDuration": "約 20-40 分鐘",
+      "links": [
+        {
+          "label": "Okinawa Island Guide",
+          "href": "https://www.oki-islandguide.com/food_and_drink/pork-tamago-onigiri-honten-kokusai-street-branch"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E3%83%9D%E3%83%BC%E3%81%9F%E3%81%BE%20%E7%89%A7%E5%BF%97%E5%B8%82%E5%A0%B4%E5%BA%97"
+        }
+      ],
+      "planGroup": "9/10 那霸 / 南部",
+      "timeBlock": "早餐 / 點心"
+    },
+    {
+      "id": "kokusai-yatai-mura",
+      "name": "國際通屋台村",
+      "category": "美食",
+      "area": "那霸",
+      "coordinates": {
+        "lat": 26.2166,
+        "lng": 127.6902
+      },
+      "visitWindow": "晚餐 / 宵夜 · 國際通同日",
+      "priority": "nice-to-have",
+      "tags": [
+        "屋台",
+        "小吃",
+        "喝酒",
+        "那霸"
+      ],
+      "notes": "不想鎖定單一餐廳時好用，小店密集，適合多人分食和補宵夜。",
+      "sortOrder": 450,
+      "address": "沖繩縣那霸市牧志3-11-18",
+      "recommendedDuration": "約 1-2 小時",
+      "links": [
+        {
+          "label": "Okinawa Hai",
+          "href": "https://okinawahai.com/kokusai-dori-food-street/"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E5%9B%BD%E9%9A%9B%E9%80%9A%E3%82%8A%E5%B1%8B%E5%8F%B0%E6%9D%91%20%E9%82%A3%E8%A6%87"
+        }
+      ],
+      "planGroup": "9/10 那霸 / 南部",
+      "timeBlock": "晚餐 / 宵夜"
+    },
+    {
+      "id": "yunangi",
+      "name": "ゆうなんぎい",
+      "category": "美食",
+      "area": "那霸久茂地",
+      "coordinates": {
+        "lat": 26.2137,
+        "lng": 127.6798
+      },
+      "visitWindow": "晚餐 · 那霸市內",
+      "priority": "must-see",
+      "tags": [
+        "沖繩料理",
+        "正餐",
+        "居酒屋",
+        "那霸"
+      ],
+      "notes": "沖繩料理正餐候選，適合吃豆腐、魚、沖繩麵等經典菜。熱門店，晚餐建議早點到或先查是否可訂。",
+      "sortOrder": 460,
+      "address": "那霸市久茂地周邊",
+      "recommendedDuration": "約 1.5-2 小時",
+      "links": [
+        {
+          "label": "Tabelog",
+          "href": "https://s.tabelog.com/en/okinawa/A4701/A470101/47000017/"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E3%82%86%E3%81%86%E3%81%AA%E3%82%93%E3%81%8E%E3%81%84%20%E9%82%A3%E8%A6%87"
+        }
+      ],
+      "planGroup": "9/10 那霸 / 南部",
+      "timeBlock": "晚餐"
+    },
+    {
+      "id": "dachibin-kumoji",
+      "name": "だいこんの花 / だちびん 久茂地店",
+      "category": "居酒屋",
+      "area": "那霸久茂地",
+      "coordinates": {
+        "lat": 26.2158,
+        "lng": 127.6816
+      },
+      "visitWindow": "晚餐 · 泡盛 / 沖繩料理",
+      "priority": "nice-to-have",
+      "tags": [
+        "居酒屋",
+        "泡盛",
+        "沖繩料理",
+        "那霸"
+      ],
+      "notes": "傳統沖繩民家氛圍的居酒屋候選，適合想喝泡盛、吃沖繩料理的晚上。",
+      "sortOrder": 470,
+      "address": "那霸市久茂地周邊",
+      "recommendedDuration": "約 1.5-2.5 小時",
+      "links": [
+        {
+          "label": "Tabelog",
+          "href": "https://s.tabelog.com/en/okinawa/A4701/A470101/47002178/"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E3%81%A0%E3%81%A1%E3%81%B3%E3%82%93%20%E4%B9%85%E8%8C%82%E5%9C%B0%E5%BA%97%20%E9%82%A3%E8%A6%87"
+        }
+      ],
+      "planGroup": "9/10 那霸 / 南部",
+      "timeBlock": "晚餐 / 居酒屋"
+    },
+    {
+      "id": "warayui-live-izakaya",
+      "name": "島唄ライブ沖縄料理 わらゆい",
+      "category": "居酒屋",
+      "area": "那霸國際通",
+      "coordinates": {
+        "lat": 26.2159,
+        "lng": 127.6864
+      },
+      "visitWindow": "晚餐 · 島唄 live",
+      "priority": "nice-to-have",
+      "tags": [
+        "島唄",
+        "live",
+        "沖繩料理",
+        "那霸"
+      ],
+      "notes": "想要有沖繩民謠 live 氣氛的晚餐候選。比純吃飯更觀光，但適合第一晚或最後一晚。",
+      "sortOrder": 480,
+      "address": "那霸市國際通周邊",
+      "recommendedDuration": "約 2 小時",
+      "links": [
+        {
+          "label": "Good Luck Trip",
+          "href": "https://www.gltjp.com/en/directory/item/13421/"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E5%B3%B6%E5%94%84%E3%83%A9%E3%82%A4%E3%83%96%E6%B2%96%E7%B8%84%E6%96%99%E7%90%86%20%E3%82%8F%E3%82%89%E3%82%86%E3%81%84%20%E9%82%A3%E8%A6%87"
+        }
+      ],
+      "planGroup": "9/10 那霸 / 南部",
+      "timeBlock": "晚餐 / live"
+    },
+    {
+      "id": "jacks-steak-house",
+      "name": "Jack's Steak House",
+      "category": "美食",
+      "area": "那霸旭橋",
+      "coordinates": {
+        "lat": 26.2135,
+        "lng": 127.6714
+      },
+      "visitWindow": "午餐 / 晚餐 · 那霸市內",
+      "priority": "nice-to-have",
+      "tags": [
+        "牛排",
+        "老店",
+        "排隊",
+        "那霸"
+      ],
+      "notes": "1953年創業的沖繩牛排文化代表店。常排隊，適合想吃美式沖繩牛排的一餐。",
+      "sortOrder": 490,
+      "address": "沖繩縣那霸市西1-7-3",
+      "recommendedDuration": "約 1-1.5 小時",
+      "links": [
+        {
+          "label": "官網",
+          "href": "https://steak.co.jp/en"
+        },
+        {
+          "label": "Tabelog",
+          "href": "https://s.tabelog.com/en/okinawa/A4701/A470101/47000054/"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=Jack's%20Steak%20House%20Naha%20Okinawa"
+        }
+      ],
+      "planGroup": "9/10 那霸 / 南部",
+      "timeBlock": "午餐 / 晚餐"
+    },
+    {
+      "id": "sefa-utaki",
+      "name": "齋場御嶽",
+      "category": "文化",
+      "area": "南城",
+      "coordinates": {
+        "lat": 26.164,
+        "lng": 127.8158
+      },
+      "visitWindow": "南部半日線 · 小雨可",
+      "priority": "nice-to-have",
+      "tags": [
+        "世界遺產",
+        "琉球信仰",
+        "南部",
+        "戶外"
+      ],
+      "notes": "南部文化線核心點。路面濕滑時放慢，颱風或強雨不排。",
+      "sortOrder": 500,
+      "address": "沖繩縣南城市知念久手堅",
+      "recommendedDuration": "約 1 小時",
+      "links": [
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%96%8E%E5%A0%B4%E5%BE%A1%E5%B6%BD%20%E6%B2%96%E7%B8%84"
+        }
+      ],
+      "planGroup": "9/10 那霸 / 南部",
+      "timeBlock": "上午 / 下午"
+    },
+    {
+      "id": "okinawa-world-gyokusendo",
+      "name": "沖繩世界 · 玉泉洞",
+      "category": "景點",
+      "area": "南城",
+      "coordinates": {
+        "lat": 26.1398,
+        "lng": 127.749
+      },
+      "visitWindow": "南部半日線 · 雨天備案",
+      "priority": "nice-to-have",
+      "tags": [
+        "鐘乳石洞",
+        "文化體驗",
+        "南部",
+        "雨天備案"
+      ],
+      "notes": "南部雨天備案強，適合和齋場御嶽或姬百合之塔串半日到一日。",
+      "sortOrder": 510,
+      "address": "沖繩縣南城市玉城前川1336",
+      "recommendedDuration": "約 2-3 小時",
+      "links": [
+        {
+          "label": "官網",
+          "href": "https://www.gyokusendo.co.jp/okinawaworld/"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E3%81%8A%E3%81%8D%E3%81%AA%E3%82%8F%E3%83%AF%E3%83%BC%E3%83%AB%E3%83%89%20%E7%8E%89%E6%B3%89%E6%B4%9E"
+        }
+      ],
+      "planGroup": "9/10 那霸 / 南部",
+      "timeBlock": "雨天備案"
+    },
+    {
+      "id": "himeyuri-peace-museum",
+      "name": "姬百合之塔 / 姬百合和平祈念資料館",
+      "category": "文化",
+      "area": "糸滿",
+      "coordinates": {
+        "lat": 26.095,
+        "lng": 127.691
+      },
+      "visitWindow": "南部半日線",
+      "priority": "optional",
+      "tags": [
+        "歷史",
+        "和平紀念",
+        "南部",
+        "室內"
+      ],
+      "notes": "二戰沖繩戰相關歷史點，氣氛沉重。若想讓行程不只看海，可放在南部線。",
+      "sortOrder": 520,
+      "address": "沖繩縣糸滿市伊原671-1",
+      "recommendedDuration": "約 1-1.5 小時",
+      "links": [
+        {
+          "label": "官網",
+          "href": "https://www.himeyuri.or.jp/ENGLISH/"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=%E3%81%B2%E3%82%81%E3%82%86%E3%82%8A%E3%81%AE%E5%A1%94%20%E3%81%B2%E3%82%81%E3%82%86%E3%82%8A%E5%B9%B3%E5%92%8C%E7%A5%88%E5%BF%B5%E8%B3%87%E6%96%99%E9%A4%A8"
+        }
+      ],
+      "planGroup": "9/10 那霸 / 南部",
+      "timeBlock": "南部加碼"
+    },
+    {
+      "id": "churasun6",
+      "name": "Churasun6 沖繩",
+      "category": "行程",
+      "area": "那霸松山",
+      "coordinates": {
+        "lat": 26.2174,
+        "lng": 127.6821
+      },
+      "visitWindow": "日期待定",
+      "priority": "nice-to-have",
+      "tags": [
+        "秀場",
+        "夜間",
+        "那霸"
+      ],
+      "notes": "日本最大級宇宙船型秀場。1 部 OPEN 20:00 / Show 20:30，2 部 OPEN 22:00 / Show 22:30。日期尚未確定。",
+      "sortOrder": 700,
+      "address": "沖繩縣那霸市松山1-5-1 ナムラプラザビル2F",
+      "recommendedDuration": "約 1.5 小時",
+      "links": [
+        {
+          "label": "官網",
+          "href": "https://churasun6.com"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://maps.app.goo.gl/4jemG6Vc2EEUDP359"
+        }
+      ],
+      "planGroup": "可調整夜間",
+      "timeBlock": "夜間活動"
+    },
+    {
+      "id": "king-tacos-kin",
+      "name": "King Tacos 金武本店",
+      "category": "美食",
+      "area": "金武",
+      "coordinates": {
+        "lat": 26.4566,
+        "lng": 127.9264
+      },
+      "visitWindow": "中部 / 東側繞路時 · taco rice",
+      "priority": "optional",
+      "tags": [
+        "taco rice",
+        "沖繩美式",
+        "正餐",
+        "繞路"
+      ],
+      "notes": "Taco rice 發源地金武町的經典候選。離目前西海岸主線稍繞，除非剛好排中部 / 東側，不然不硬塞。",
+      "sortOrder": 710,
+      "address": "沖繩縣國頭郡金武町金武4244-4",
+      "recommendedDuration": "約 45-75 分鐘",
+      "links": [
+        {
+          "label": "金武町觀光協會",
+          "href": "https://www.visitkintown.jp/en/spot/king-tacos-kin-main-branch"
+        },
+        {
+          "label": "Google 地圖",
+          "href": "https://www.google.com/maps/search/?api=1&query=King%20Tacos%20%E9%87%91%E6%AD%A6%E6%9C%AC%E5%BA%97"
+        }
+      ],
+      "planGroup": "可調整中部",
+      "timeBlock": "午餐 / 晚餐"
+    },
+    {
+      "id": "flight-return",
+      "name": "回程航班 · 樂桃航空",
+      "category": "航班",
+      "area": "沖繩 → 臺北",
+      "coordinates": {
+        "lat": 26.1958,
+        "lng": 127.6459
+      },
+      "visitWindow": "9月11日（週五）08:10-08:45",
+      "priority": "must-see",
+      "tags": [
+        "樂桃航空",
+        "直達",
+        "OKA",
+        "TPE"
+      ],
+      "notes": "沖繩那霸 OKA 08:10 出發，臺北桃園 TPE 08:45 抵達，飛行時間 1 小時 35 分。",
+      "sortAt": "2026-09-11T08:10:00+08:00",
+      "sortOrder": 900,
+      "route": {
+        "from": {
+          "lat": 26.1958,
+          "lng": 127.6459
+        },
+        "to": {
+          "lat": 25.0777,
+          "lng": 121.2328
+        }
+      },
+      "address": "那霸機場 (OKA) → 桃園國際機場 (TPE)",
+      "recommendedDuration": "1 小時 35 分",
+      "links": [
+        {
+          "label": "那霸機場地圖",
+          "href": "https://maps.app.goo.gl/a2rXMaJdKbvGUnA47"
+        },
+        {
+          "label": "桃園機場地圖",
+          "href": "https://maps.app.goo.gl/ZFXbQ8FBcpFENUGcA"
+        }
+      ],
+      "planGroup": "9/11 回程日",
+      "timeBlock": "機場 / 航班"
+    }
+  ]
+}

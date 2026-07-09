@@ -1,21 +1,18 @@
-# Next.js template
+# okinawa.winlab.tw
 
-This is a Next.js template with shadcn/ui.
+WinLab Okinawa trip dashboard. The app renders a checked-in itinerary JSON file on a Mapbox map with an ordered attraction list.
 
-## Adding components
+## Data
 
-To add components to your app, run the following command:
+Trip data lives in `data/trip-attractions.json`. Update itinerary data by editing that file and committing the change through git; there is no runtime write API.
+
+## Commands
 
 ```bash
-npx shadcn@latest add button
-```
-
-This will place the ui components in the `components` directory.
-
-## Using components
-
-To use the components in your app, import them as follows:
-
-```tsx
-import { Button } from "@/components/ui/button";
+bun install
+bun run dev
+bun test
+bun run typecheck
+bun run lint
+bun run build
 ```
