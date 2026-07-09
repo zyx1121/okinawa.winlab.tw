@@ -1,6 +1,8 @@
 import { TripDashboard } from "@/components/trip/trip-dashboard"
 import { listTripAttractions } from "@/lib/trip/data"
 
+export const dynamic = "force-dynamic"
+
 export default async function Page() {
   const attractions = listTripAttractions()
   const mapboxAccessToken =
