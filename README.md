@@ -16,3 +16,5 @@ bun run typecheck
 bun run lint
 bun run build
 ```
+
+<!-- winfra-paas GitHub App CD verification 1783658887 -->
