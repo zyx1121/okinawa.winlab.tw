@@ -24,6 +24,7 @@ import {
 
 import { cn } from "@/lib/utils"
 import type { AttractionMarkerKind } from "@/lib/trip/category"
+import type { DrivingRoute } from "@/lib/trip/directions"
 import { createGreatCircleRouteCoordinates } from "@/lib/trip/geo"
 import { createAttractionMarkerPlacements } from "@/lib/trip/markers"
 import type { Attraction, AttractionCoordinates } from "@/lib/trip/types"
@@ -35,6 +36,7 @@ const OKA_COORDINATES = { lat: 26.1958, lng: 127.6459 }
 type TripMapProps = {
   attractions: Attraction[]
   selectedAttractionId: string | null
+  dailyRoute: DrivingRoute | null
   mapboxAccessToken: string | null
   onSelectAttraction: (attractionId: string) => void
 }
@@ -54,7 +56,7 @@ type RouteFeatureCollection = {
 }
 
 function createRouteFeatureCollection(
-  attractions: Attraction[],
+  attractions: Attraction[]
 ): RouteFeatureCollection {
   return {
     type: "FeatureCollection",
@@ -67,7 +69,7 @@ function createRouteFeatureCollection(
           type: "LineString",
           coordinates: createGreatCircleRouteCoordinates(
             attraction.route!.from,
-            attraction.route!.to,
+            attraction.route!.to
           ),
         },
       })),
@@ -154,7 +156,7 @@ function AttractionMarker({
         onClick={() => onSelect(attractionId)}
         className={cn(
           "rounded-full border border-border bg-card p-2 text-foreground shadow-md transition hover:scale-105 hover:bg-accent",
-          isSelected && "border-primary bg-primary text-primary-foreground",
+          isSelected && "border-primary bg-primary text-primary-foreground"
         )}
       >
         <MarkerIcon className="size-4" />
@@ -166,6 +168,7 @@ function AttractionMarker({
 export function TripMap({
   attractions,
   selectedAttractionId,
+  dailyRoute,
   mapboxAccessToken,
   onSelectAttraction,
 }: TripMapProps) {
@@ -173,15 +176,16 @@ export function TripMap({
   const [mapRenderKey] = React.useState(() => `trip-map-${crypto.randomUUID()}`)
 
   const selectedAttraction =
-    attractions.find((attraction) => attraction.id === selectedAttractionId) ?? null
+    attractions.find((attraction) => attraction.id === selectedAttractionId) ??
+    null
 
   const routeData = React.useMemo(
     () => createRouteFeatureCollection(attractions),
-    [attractions],
+    [attractions]
   )
   const markerPlacements = React.useMemo(
     () => createAttractionMarkerPlacements(attractions),
-    [attractions],
+    [attractions]
   )
 
   React.useEffect(() => {
@@ -189,7 +193,9 @@ export function TripMap({
       return
     }
 
-    const attraction = attractions.find((item) => item.id === selectedAttractionId)
+    const attraction = attractions.find(
+      (item) => item.id === selectedAttractionId
+    )
     const map = mapRef.current?.getMap()
 
     if (!attraction || !map) {
@@ -198,6 +204,35 @@ export function TripMap({
 
     focusAttraction(map, attraction)
   }, [attractions, selectedAttractionId])
+
+  React.useEffect(() => {
+    const coordinates = dailyRoute?.geometry.coordinates
+    const map = mapRef.current?.getMap()
+
+    if (!coordinates || coordinates.length < 2 || !map) {
+      return
+    }
+
+    const bounds = coordinates.reduce<[[number, number], [number, number]]>(
+      (currentBounds, coordinate) => [
+        [
+          Math.min(currentBounds[0][0], coordinate[0]),
+          Math.min(currentBounds[0][1], coordinate[1]),
+        ],
+        [
+          Math.max(currentBounds[1][0], coordinate[0]),
+          Math.max(currentBounds[1][1], coordinate[1]),
+        ],
+      ],
+      [coordinates[0], coordinates[0]]
+    )
+
+    map.fitBounds(bounds, {
+      padding: getFocusPadding(),
+      duration: 900,
+      maxZoom: 11.5,
+    })
+  }, [dailyRoute])
 
   if (!mapboxAccessToken) {
     return (
@@ -256,16 +291,42 @@ export function TripMap({
           </Source>
         ) : null}
 
-        {markerPlacements.map((placement) => (
-            <AttractionMarker
-              key={placement.key}
-              attractionId={placement.attractionId}
-              coordinates={placement.coordinates}
-              markerKind={placement.markerKind}
-              offset={placement.offset}
-              isSelected={placement.attractionId === selectedAttractionId}
-              onSelect={onSelectAttraction}
+        {dailyRoute ? (
+          <Source
+            id="daily-driving-route"
+            type="geojson"
+            data={{
+              type: "Feature",
+              properties: {},
+              geometry: dailyRoute.geometry,
+            }}
+          >
+            <Layer
+              id="daily-driving-route-line"
+              type="line"
+              paint={{
+                "line-color": "#f97316",
+                "line-width": 4,
+                "line-opacity": 0.9,
+              }}
+              layout={{
+                "line-cap": "round",
+                "line-join": "round",
+              }}
             />
+          </Source>
+        ) : null}
+
+        {markerPlacements.map((placement) => (
+          <AttractionMarker
+            key={placement.key}
+            attractionId={placement.attractionId}
+            coordinates={placement.coordinates}
+            markerKind={placement.markerKind}
+            offset={placement.offset}
+            isSelected={placement.attractionId === selectedAttractionId}
+            onSelect={onSelectAttraction}
+          />
         ))}
 
         {selectedAttraction && !selectedAttraction.route ? (

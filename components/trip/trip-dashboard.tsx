@@ -5,13 +5,15 @@ import * as React from "react"
 import { ExternalLink, List, MapPin, X } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { applyAttractionFilters } from "@/lib/trip/filters"
+import type { DrivingRoute } from "@/lib/trip/directions"
+import { requestDrivingRoute } from "@/lib/trip/directions"
+import {
+  buildGoogleMapsNavigationUrl,
+  buildGoogleMapsRouteSegments,
+  createDailyRouteStops,
+} from "@/lib/trip/routes"
 import { groupAttractionsByPlan } from "@/lib/trip/sections"
 import { sortAttractionsByTime } from "@/lib/trip/sort"
 import { cn } from "@/lib/utils"
@@ -26,7 +28,7 @@ const TripMap = dynamic(
         地圖載入中…
       </div>
     ),
-  },
+  }
 )
 
 type TripDashboardProps = {
@@ -34,10 +36,39 @@ type TripDashboardProps = {
   mapboxAccessToken: string | null
 }
 
-function getAttractionCategories(attractions: Attraction[]) {
-  return Array.from(new Set(attractions.map((attraction) => attraction.category))).sort(
-    (left, right) => left.localeCompare(right, "zh-Hant"),
+type DailyRouteState = {
+  key: string
+  status: "ready" | "unavailable"
+  route: DrivingRoute | null
+}
+
+type DailyRouteStatus =
+  "idle" | "loading" | "ready" | "not-enough" | "unavailable"
+
+function getPlanGroups(attractions: Attraction[]) {
+  return Array.from(
+    new Set(
+      attractions.flatMap((attraction) =>
+        attraction.planGroup ? [attraction.planGroup] : []
+      )
+    )
   )
+}
+
+function formatDistance(distanceMeters: number) {
+  return new Intl.NumberFormat("zh-TW", {
+    maximumFractionDigits: distanceMeters < 10_000 ? 1 : 0,
+  }).format(distanceMeters / 1_000)
+}
+
+function formatDuration(durationSeconds: number) {
+  return Math.max(1, Math.round(durationSeconds / 60))
+}
+
+function getAttractionCategories(attractions: Attraction[]) {
+  return Array.from(
+    new Set(attractions.map((attraction) => attraction.category))
+  ).sort((left, right) => left.localeCompare(right, "zh-Hant"))
 }
 
 const PRIORITY_LABELS = {
@@ -65,26 +96,83 @@ export function TripDashboard({
 }: TripDashboardProps) {
   const attractions = React.useMemo(
     () => sortAttractionsByTime(initialAttractions),
-    [initialAttractions],
+    [initialAttractions]
   )
-  const categories = React.useMemo(() => getAttractionCategories(attractions), [attractions])
-  const [selectedCategories, setSelectedCategories] = React.useState<string[]>([])
+  const categories = React.useMemo(
+    () => getAttractionCategories(attractions),
+    [attractions]
+  )
+  const planGroups = React.useMemo(
+    () => getPlanGroups(attractions),
+    [attractions]
+  )
+  const [selectedPlanGroup, setSelectedPlanGroup] = React.useState<
+    string | null
+  >(null)
+  const scopedAttractions = React.useMemo(
+    () =>
+      selectedPlanGroup
+        ? attractions.filter(
+            (attraction) => attraction.planGroup === selectedPlanGroup
+          )
+        : attractions,
+    [attractions, selectedPlanGroup]
+  )
+  const [selectedCategories, setSelectedCategories] = React.useState<string[]>(
+    []
+  )
   const filteredAttractions = React.useMemo(
     () =>
-      applyAttractionFilters(attractions, {
+      applyAttractionFilters(scopedAttractions, {
         search: "",
         categories: selectedCategories,
         areas: [],
         priorities: [],
       }),
-    [attractions, selectedCategories],
+    [scopedAttractions, selectedCategories]
   )
-  const [selectedAttractionId, setSelectedAttractionId] = React.useState<string | null>(
-    filteredAttractions[0]?.id ?? null,
-  )
+  const [selectedAttractionId, setSelectedAttractionId] = React.useState<
+    string | null
+  >(filteredAttractions[0]?.id ?? null)
   const [mobileListOpen, setMobileListOpen] = React.useState(false)
+  const dailyRouteStops = React.useMemo(
+    () => (selectedPlanGroup ? createDailyRouteStops(scopedAttractions) : []),
+    [scopedAttractions, selectedPlanGroup]
+  )
+  const dailyRouteKey = React.useMemo(
+    () =>
+      [
+        selectedPlanGroup,
+        ...dailyRouteStops.map(
+          (stop) => `${stop.id}:${stop.coordinates.lng},${stop.coordinates.lat}`
+        ),
+      ].join("|"),
+    [dailyRouteStops, selectedPlanGroup]
+  )
+  const [dailyRouteState, setDailyRouteState] =
+    React.useState<DailyRouteState | null>(null)
+  const routeRequestSequence = React.useRef(0)
+  const googleMapsRouteSegments = React.useMemo(
+    () => buildGoogleMapsRouteSegments(dailyRouteStops),
+    [dailyRouteStops]
+  )
+  const dailyRouteStatus: DailyRouteStatus = !selectedPlanGroup
+    ? "idle"
+    : dailyRouteStops.length < 2
+      ? "not-enough"
+      : !mapboxAccessToken
+        ? "unavailable"
+        : dailyRouteState?.key === dailyRouteKey
+          ? dailyRouteState.status
+          : "loading"
+  const dailyRoute =
+    dailyRouteStatus === "ready" && dailyRouteState?.key === dailyRouteKey
+      ? dailyRouteState.route
+      : null
   const activeAttractionId =
-    filteredAttractions.find((attraction) => attraction.id === selectedAttractionId)?.id ??
+    filteredAttractions.find(
+      (attraction) => attraction.id === selectedAttractionId
+    )?.id ??
     filteredAttractions[0]?.id ??
     null
   const activeFilterCount = selectedCategories.length
@@ -93,19 +181,80 @@ export function TripDashboard({
     setSelectedCategories((currentCategories) =>
       currentCategories.includes(category)
         ? currentCategories.filter((item) => item !== category)
-        : [...currentCategories, category],
+        : [...currentCategories, category]
     )
   }, [])
   const clearCategories = React.useCallback(() => {
     setSelectedCategories([])
   }, [])
-  const handleMapSelectAttraction = React.useCallback((attractionId: string) => {
-    setSelectedAttractionId(attractionId)
+  const handleSelectPlanGroup = React.useCallback(
+    (planGroup: string | null) => {
+      setSelectedPlanGroup(planGroup)
+      setDailyRouteState(null)
 
-    if (typeof window !== "undefined" && window.innerWidth < 768) {
-      setMobileListOpen(true)
+      const firstAttraction = planGroup
+        ? attractions.find((attraction) => attraction.planGroup === planGroup)
+        : attractions[0]
+      setSelectedAttractionId(firstAttraction?.id ?? null)
+    },
+    [attractions]
+  )
+  const handleMapSelectAttraction = React.useCallback(
+    (attractionId: string) => {
+      setSelectedAttractionId(attractionId)
+
+      if (typeof window !== "undefined" && window.innerWidth < 768) {
+        setMobileListOpen(true)
+      }
+    },
+    []
+  )
+
+  React.useEffect(() => {
+    if (
+      !selectedPlanGroup ||
+      dailyRouteStops.length < 2 ||
+      !mapboxAccessToken
+    ) {
+      return
     }
-  }, [])
+
+    const controller = new AbortController()
+    const requestSequence = ++routeRequestSequence.current
+
+    requestDrivingRoute(dailyRouteStops, {
+      accessToken: mapboxAccessToken,
+      signal: controller.signal,
+    })
+      .then((route) => {
+        if (
+          controller.signal.aborted ||
+          requestSequence !== routeRequestSequence.current
+        ) {
+          return
+        }
+
+        setDailyRouteState({ key: dailyRouteKey, status: "ready", route })
+      })
+      .catch(() => {
+        if (
+          controller.signal.aborted ||
+          requestSequence !== routeRequestSequence.current
+        ) {
+          return
+        }
+
+        setDailyRouteState({
+          key: dailyRouteKey,
+          status: "unavailable",
+          route: null,
+        })
+      })
+
+    return () => {
+      controller.abort()
+    }
+  }, [dailyRouteKey, dailyRouteStops, mapboxAccessToken, selectedPlanGroup])
 
   return (
     <div className="relative min-h-svh overflow-hidden bg-background text-foreground">
@@ -113,6 +262,7 @@ export function TripDashboard({
         <TripMap
           attractions={filteredAttractions}
           selectedAttractionId={activeAttractionId}
+          dailyRoute={dailyRoute}
           mapboxAccessToken={mapboxAccessToken}
           onSelectAttraction={handleMapSelectAttraction}
         />
@@ -129,9 +279,16 @@ export function TripDashboard({
         <AttractionList
           attractions={filteredAttractions}
           categories={categories}
+          planGroups={planGroups}
+          selectedPlanGroup={selectedPlanGroup}
           selectedCategories={selectedCategories}
           activeFilterCount={activeFilterCount}
           selectedAttractionId={activeAttractionId}
+          dailyRouteStatus={dailyRouteStatus}
+          dailyRoute={dailyRoute}
+          dailyRouteStopCount={dailyRouteStops.length}
+          googleMapsRouteSegments={googleMapsRouteSegments}
+          onSelectPlanGroup={handleSelectPlanGroup}
           onToggleCategory={toggleCategory}
           onClearCategories={clearCategories}
           onSelectAttraction={setSelectedAttractionId}
@@ -139,13 +296,23 @@ export function TripDashboard({
         />
       </div>
 
-      <MobileDrawer open={mobileListOpen} onClose={() => setMobileListOpen(false)}>
+      <MobileDrawer
+        open={mobileListOpen}
+        onClose={() => setMobileListOpen(false)}
+      >
         <AttractionList
           attractions={filteredAttractions}
           categories={categories}
+          planGroups={planGroups}
+          selectedPlanGroup={selectedPlanGroup}
           selectedCategories={selectedCategories}
           activeFilterCount={activeFilterCount}
           selectedAttractionId={activeAttractionId}
+          dailyRouteStatus={dailyRouteStatus}
+          dailyRoute={dailyRoute}
+          dailyRouteStopCount={dailyRouteStops.length}
+          googleMapsRouteSegments={googleMapsRouteSegments}
+          onSelectPlanGroup={handleSelectPlanGroup}
           onToggleCategory={toggleCategory}
           onClearCategories={clearCategories}
           onSelectAttraction={(id) => {
@@ -163,9 +330,16 @@ export function TripDashboard({
 function AttractionList({
   attractions,
   categories,
+  planGroups,
+  selectedPlanGroup,
   selectedCategories,
   activeFilterCount,
   selectedAttractionId,
+  dailyRouteStatus,
+  dailyRoute,
+  dailyRouteStopCount,
+  googleMapsRouteSegments,
+  onSelectPlanGroup,
   onToggleCategory,
   onClearCategories,
   onSelectAttraction,
@@ -175,9 +349,16 @@ function AttractionList({
 }: {
   attractions: Attraction[]
   categories: string[]
+  planGroups: string[]
+  selectedPlanGroup: string | null
   selectedCategories: string[]
   activeFilterCount: number
   selectedAttractionId: string | null
+  dailyRouteStatus: DailyRouteStatus
+  dailyRoute: DrivingRoute | null
+  dailyRouteStopCount: number
+  googleMapsRouteSegments: string[]
+  onSelectPlanGroup: (planGroup: string | null) => void
   onToggleCategory: (category: string) => void
   onClearCategories: () => void
   onSelectAttraction: (attractionId: string) => void
@@ -186,12 +367,15 @@ function AttractionList({
   mobile?: boolean
 }) {
   const itemRefs = React.useRef<Record<string, HTMLButtonElement | null>>({})
-  const sections = React.useMemo(() => groupAttractionsByPlan(attractions), [attractions])
+  const sections = React.useMemo(
+    () => groupAttractionsByPlan(attractions),
+    [attractions]
+  )
   const setItemRef = React.useCallback(
     (attractionId: string, element: HTMLButtonElement | null) => {
       itemRefs.current[attractionId] = element
     },
-    [],
+    []
   )
 
   React.useEffect(() => {
@@ -210,15 +394,18 @@ function AttractionList({
       className={cn(
         "pointer-events-auto flex flex-col overflow-hidden",
         mobile ? "h-full min-h-0 shadow-none" : "h-full",
-        className,
+        className
       )}
     >
       <CardHeader className="shrink-0 border-b border-border pb-4">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <CardTitle className="text-lg">WinLab Okinawa Trip Dashboard</CardTitle>
+            <CardTitle className="text-lg">
+              WinLab Okinawa Trip Dashboard
+            </CardTitle>
             <p className="mt-1 text-xs text-muted-foreground">
-              {attractions.length} 筆{activeFilterCount > 0 ? ` · ${activeFilterCount} 類已選` : ""}
+              {attractions.length} 筆
+              {activeFilterCount > 0 ? ` · ${activeFilterCount} 類已選` : ""}
             </p>
           </div>
           {mobile && onClose ? (
@@ -227,6 +414,31 @@ function AttractionList({
             </Button>
           ) : null}
         </div>
+        <label className="mt-3 block space-y-1.5">
+          <span className="text-xs font-medium text-muted-foreground">
+            日程
+          </span>
+          <select
+            value={selectedPlanGroup ?? ""}
+            onChange={(event) => onSelectPlanGroup(event.target.value || null)}
+            className="h-9 w-full rounded-lg border border-border bg-background px-3 text-sm text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <option value="">全部</option>
+            {planGroups.map((planGroup) => (
+              <option key={planGroup} value={planGroup}>
+                {planGroup}
+              </option>
+            ))}
+          </select>
+        </label>
+        {selectedPlanGroup ? (
+          <RouteSummary
+            status={dailyRouteStatus}
+            route={dailyRoute}
+            stopCount={dailyRouteStopCount}
+            googleMapsRouteSegments={googleMapsRouteSegments}
+          />
+        ) : null}
         <div className="mt-3 flex flex-wrap gap-1.5">
           {categories.map((category) => {
             const isSelected = selectedCategories.includes(category)
@@ -241,7 +453,7 @@ function AttractionList({
                   "rounded-full border px-2.5 py-1 text-xs font-medium transition",
                   isSelected
                     ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground",
+                    : "border-border bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                 )}
               >
                 {category}
@@ -261,8 +473,10 @@ function AttractionList({
       </CardHeader>
       <CardContent
         className={cn(
-          "flex-1 space-y-3 overflow-y-auto px-4 pb-4 pt-0",
-          mobile ? "min-h-0 pb-[calc(1rem+env(safe-area-inset-bottom))]" : "min-h-0",
+          "flex-1 space-y-3 overflow-y-auto px-4 pt-0 pb-4",
+          mobile
+            ? "min-h-0 pb-[calc(1rem+env(safe-area-inset-bottom))]"
+            : "min-h-0"
         )}
       >
         {attractions.length === 0 ? (
@@ -301,6 +515,58 @@ function AttractionList({
   )
 }
 
+function RouteSummary({
+  status,
+  route,
+  stopCount,
+  googleMapsRouteSegments,
+}: {
+  status: DailyRouteStatus
+  route: DrivingRoute | null
+  stopCount: number
+  googleMapsRouteSegments: string[]
+}) {
+  let summary = `${stopCount} 站`
+
+  if (status === "loading") {
+    summary += " · 路線計算中…"
+  } else if (status === "ready" && route) {
+    summary += ` · ${formatDistance(route.distanceMeters)} km · ${formatDuration(route.durationSeconds)} 分`
+  } else if (status === "not-enough") {
+    summary += " · 至少需要 2 個可駕車景點"
+  } else if (status === "unavailable") {
+    summary += " · 路線暫時無法載入"
+  }
+
+  return (
+    <div className="mt-3 rounded-xl border border-border bg-muted/60 p-3">
+      <p className="text-xs font-semibold">預估車程</p>
+      <p className="mt-1 text-sm text-foreground">{summary}</p>
+      <p className="mt-1 text-[11px] text-muted-foreground">
+        Directions powered by Mapbox
+      </p>
+      {googleMapsRouteSegments.length > 0 ? (
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {googleMapsRouteSegments.map((href, index) => (
+            <a
+              key={href}
+              href={href}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-7 items-center gap-1 rounded-lg border border-border bg-background px-2 text-xs font-medium transition hover:bg-accent"
+            >
+              <ExternalLink className="size-3" />
+              {googleMapsRouteSegments.length === 1
+                ? "Google Maps 導航"
+                : `Google Maps 第 ${index + 1} 段`}
+            </a>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
 function AttractionListItem({
   attraction,
   isActive,
@@ -325,7 +591,7 @@ function AttractionListItem({
         "w-full rounded-2xl border p-4 text-left transition",
         isActive
           ? "border-primary bg-primary/10"
-          : "border-border bg-secondary hover:bg-accent",
+          : "border-border bg-secondary hover:bg-accent"
       )}
     >
       <div className="flex flex-wrap items-start justify-between gap-2">
@@ -349,7 +615,9 @@ function AttractionListItem({
       <p className="mt-3 text-sm leading-relaxed">{attraction.notes}</p>
 
       {attraction.address ? (
-        <p className="mt-2 text-xs text-muted-foreground">{attraction.address}</p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          {attraction.address}
+        </p>
       ) : null}
 
       {attraction.recommendedDuration ? (
@@ -369,6 +637,19 @@ function AttractionListItem({
             </span>
           ))}
         </div>
+      ) : null}
+
+      {isActive ? (
+        <a
+          href={buildGoogleMapsNavigationUrl(attraction)}
+          target="_blank"
+          rel="noreferrer"
+          onClick={(event) => event.stopPropagation()}
+          className="mt-3 inline-flex h-8 w-full items-center justify-center gap-1.5 rounded-lg border border-border bg-background px-2 text-xs font-medium text-foreground transition hover:bg-muted"
+        >
+          <MapPin className="size-3.5" />
+          導航到這裡
+        </a>
       ) : null}
 
       {attraction.links && attraction.links.length > 0 ? (
@@ -408,21 +689,21 @@ function MobileDrawer({
     <div
       className={cn(
         "fixed inset-0 z-30 md:hidden",
-        open ? "pointer-events-auto" : "pointer-events-none",
+        open ? "pointer-events-auto" : "pointer-events-none"
       )}
       aria-hidden={!open}
     >
       <div
         className={cn(
           "absolute inset-0 bg-background/80 backdrop-blur-sm transition-opacity",
-          open ? "opacity-100" : "opacity-0",
+          open ? "opacity-100" : "opacity-0"
         )}
         onClick={onClose}
       />
       <div
         className={cn(
           "absolute inset-x-0 bottom-0 flex h-[82svh] max-h-[calc(100svh-1rem)] flex-col rounded-t-[2rem] border-t border-border bg-background p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] shadow-2xl transition-transform",
-          open ? "translate-y-0" : "translate-y-full",
+          open ? "translate-y-0" : "translate-y-full"
         )}
       >
         {children}
